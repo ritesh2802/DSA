@@ -4,28 +4,39 @@ public class climbStairs {
     public static void main(String args[]){
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
-        int paths = countPaths(n,new int[n+1]);
-        System.out.println(paths);
+        int ans = countPathsTab(n);
+        System.out.println(ans);
+       
+        
+
     }
 
-    public static int countPaths(int n,int[] qb){
+    public static int countPathsTab(int n){
+
         if(n==0){
             return 1;
+
         }
-        else if(n<0){
+        else if(n<0) {
             return 0;
         }
-
-        if(qb[n]!=0){
-            return qb[n];
-        }
-
-        int paths1 = countPaths(n-1,qb);
-        int paths2 = countPaths(n-2,qb);
-        int paths3 = countPaths(n-3,qb);
-
-        qb[n]= paths1+paths2+paths3;
-        return paths1+paths2+paths3; 
-
+            int dp[] = new int[n+1];
+            dp[0]=1;
+            for(int i=1;i<dp.length;i++){
+                if(i==1){
+                    dp[i]=dp[i-1];
+                }
+                else if(i==2){
+                    dp[i]=dp[i-1]+dp[i-2];
+                }
+                else{
+                    dp[i]=dp[i-1]+dp[i-2]+dp[i-3];
+                }
+            }
+            return dp[n];
     }
+
+
+
+
 }
